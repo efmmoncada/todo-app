@@ -1,0 +1,6 @@
+# Don't try to run eslint on node_modules.
+node_modules
+# Don't try to run eslint on dist folder (standard).
+dist
+# Don't try to run eslint on .build folder (nonstandard - api-public, others).
+.build
