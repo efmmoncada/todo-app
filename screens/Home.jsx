@@ -1,10 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
+import DateDisplay from '../date/DateDisplay';
 import { View, StyleSheet, Text } from "react-native";
+
 
 export function Home() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <DateDisplay />
+      <Text style={{backgroundColor: "pink"}}>Open up App.js to start working on your app!</Text>
       <StatusBar style="auto" />
     </View>
   );
@@ -15,6 +18,6 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#fff',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'start',
     },
   });
