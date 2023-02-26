@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, } from "react-native";
+import ItemDisplay from '../item/ItemDisplay';
 
 export function Home({ tasks, setTasks }) {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <ItemDisplay nCompleted="3" nGoal="5" taskName="Thingy" />
       <StatusBar style="auto" />
     </View>
   );
