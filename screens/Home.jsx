@@ -5,7 +5,10 @@ import ItemDisplay from '../item/ItemDisplay';
 export function Home() {
   return (
     <View style={styles.container}>
-      <ItemDisplay nCompleted="3" nGoal="5" taskName="Thingy" />
+      <ItemDisplay nCompleted="15" nGoal="50" taskName="Pushups" />
+      <ItemDisplay nCompleted="1" nGoal="2" taskName="Brush Teeth" />
+      <ItemDisplay nCompleted="0" nGoal="30" taskName="Read" />
+      <ItemDisplay nCompleted="1" nGoal="1" taskName="Walk" />
       <StatusBar style="auto" />
     </View>
   );

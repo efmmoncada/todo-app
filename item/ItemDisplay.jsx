@@ -1,18 +1,19 @@
 import React from "react";
 import {View, StyleSheet, Text, Dimensions, TouchableOpacity} from "react-native";
+import Icon from 'react-native-vector-icons/AntDesign'
 
 
 export default function ItemDisplay(props) {
-    var data = {nCompleted: props.nCompleted,}
-
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={[styles.clickableContainer, {flexGrow: 1}]} onPress={() => incrementData(data)}>
-            <Text style={[styles.text, {width: 75}]}>{data.nCompleted}/{props.nGoal}</Text>
+        <TouchableOpacity style={[styles.clickableContainer, {flexGrow: 1}]} onPress={incrementData}>
+            <Text style={[styles.text, {width: 75}]}>{props.nCompleted}/{props.nGoal}</Text>
             <Text style={[styles.text, {flexGrow: 2, textAlign: "left"}]}>{props.taskName}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.clickableContainer} onPress={editData}>
-            <Text style={[styles.text, {width: 75}]}>></Text>
+            <Text style={[styles.text, {width: 75}]}>
+              <Icon name="caretright" size={20} />
+            </Text>
         </TouchableOpacity>
       </View>
     );
@@ -24,10 +25,8 @@ function editData() {
 }
 
 
-function incrementData(data) {
-    data.nCompleted++
-    console.log(data.nCompleted)
-    alert("Incrementing data")
+function incrementData() {
+    alert("Incrementing Data")
 }
 
 
