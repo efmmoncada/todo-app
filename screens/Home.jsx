@@ -3,8 +3,7 @@ import DateDisplay from '../date/DateDisplay';
 import { View, StyleSheet, Text } from "react-native";
 import ItemDisplay from '../item/ItemDisplay';
 
-
-export function Home() {
+export function Home({ tasks, setTasks }) {
   return (
     <View style={styles.container}>
       <DateDisplay />
