@@ -4,8 +4,8 @@ import { Dropdown } from 'react-native-element-dropdown';
 
 export default function CreateTask({ tasks, setTasks }) {
     const [taskName, setTaskName] = useState('Title');
-    const [frequency, setFrequency] = useState(0);
-    const [frequencyType, setFrequencyType] = useState({});
+    const [goal, setGoal] = useState(0);
+    const [frequency, setFrequency] = useState({});
 
     const frequencyOptions = [
         { label: 'Yearly', value: 'Year' },
@@ -16,14 +16,17 @@ export default function CreateTask({ tasks, setTasks }) {
 
     const handleSubmit = () => {
         const task = {
-            title: taskName,
-            frequency,
-            frequencyType: frequencyType.value,
+            taskName,
+            goal,
+            completed: 0,
+            frequencyType: frequency.value,
         };
 
         console.log(task);
 
         setTasks((existingTasks) => [task, ...existingTasks]);
+
+        // TODO: navigate back to main page
     };
 
     return (
@@ -42,18 +45,18 @@ export default function CreateTask({ tasks, setTasks }) {
                 <TextInput
                     style={styles.input}
                     editable
-                    onChangeText={(val) => setFrequency(parseInt(val))}
-                    placeholder={`${frequency}`}
+                    onChangeText={(val) => setGoal(parseInt(val))}
+                    placeholder={`${goal}`}
                 />
 
                 <Dropdown
                     data={frequencyOptions}
-                    value={frequencyType}
+                    value={frequency}
                     placeholder="Select Frequency"
                     labelField="label"
                     valueField="value"
                     keyboardAvoiding
-                    onChange={(selection) => setFrequencyType(selection)}
+                    onChange={(selection) => setFrequency(selection)}
                     activeColor="lightblue"
                     style={{ flex: 1 }}
                     containerStyle={styles.dropdownContainer}
