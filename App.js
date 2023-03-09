@@ -7,18 +7,18 @@ function App() {
     // to add a task, a component should recive the setTasks function as a prop, and return a new array,
     // in which the previous state is spread, and the new task added to the front.
     const [tasks, setTasks] = useState([
-      // {
-      //   taskName: "Walk",
-      //   goal: 1,
-      //   completed: 0,
-      //   frequencyType: "Daily",
-      // },
-      // {
-      //   taskName: "Read",
-      //   goal: 30,
-      //   completed: 10,
-      //   frequencyType: "Daily",
-      // },
+      {
+        taskName: "Walk",
+        goal: 1,
+        completed: 0,
+        frequencyType: "Daily",
+      },
+      {
+        taskName: "Read",
+        goal: 30,
+        completed: 10,
+        frequencyType: "Daily",
+      },
       {
         taskName: "Floss",
         goal: 1,
@@ -27,10 +27,8 @@ function App() {
       },
     ]);
 
-    console.log(tasks)
     function updateTasks(new_tasks) {
       setTasks(new_tasks)
-      console.log(tasks)
     }    
 
     return (

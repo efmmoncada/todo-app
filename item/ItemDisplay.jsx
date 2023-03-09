@@ -1,32 +1,92 @@
-import React from "react";
-import {View, StyleSheet, Text, Dimensions, TouchableOpacity} from "react-native";
+import React, { useState } from "react";
+import {View, StyleSheet, Text, Dimensions, TouchableOpacity, TextInput, Pressable} from "react-native";
 import Icon from 'react-native-vector-icons/AntDesign'
 
-
 export default function ItemDisplay(props) {
-    return (
-      <View style={styles.container}>
-        <TouchableOpacity style={[styles.clickableContainer, {flexGrow: 1}]} onPress={() => incrementData(props)}>
-            <Text style={[styles.text, {width: 75}]}>{props.nCompleted}/{props.nGoal}</Text>
-            <Text style={[styles.text, {flexGrow: 2, textAlign: "left"}]}>{props.taskName}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.clickableContainer} onPress={editData}>
-            <Text style={[styles.text, {width: 75}]}>
-              <Icon name="caretright" size={20} />
-            </Text>
-        </TouchableOpacity>
-      </View>
-    );
+    const [expanded, setExpanded] = useState(false)
+    const [taskName, setName] = useState(props.taskName)
+    const [taskCompleted, setCompleted] = useState(props.nCompleted)
+    const [taskGoal, setGoal] = useState(props.nGoal)
+
+    if (expanded) {
+      return (
+        <View>
+          <View style={styles.container}>
+            <TouchableOpacity style={[styles.clickableContainer, {flexGrow: 1}]} onPress={() => incrementData(props)}>
+                <Text style={[styles.text, {width: 75}]}>{props.nCompleted}/{props.nGoal}</Text>
+                <Text style={[styles.text, {flexGrow: 2, textAlign: "left"}]}>{props.taskName}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.clickableContainer} onPress={() => editData(expanded, setExpanded)}>
+                <Text style={[styles.text, {width: 75}]}>
+                  <Icon name="caretdown" size={20} />
+                </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{alignItems: "center"}}>
+            <View style={styles.itemControlContainer}>
+              <Text style={styles.labelText}>Task Name:</Text>
+              <TextInput id="name" style={styles.textBox} onChangeText={(text) => setName(text)}>{props.taskName}</TextInput>
+            </View>
+            <View style={styles.itemControlContainer}>
+              <Text style={styles.labelText}>Completed:</Text>
+              <TextInput id="completed" keyboardType = 'numeric' style={styles.textBox} onChangeText={(text) => setCompleted(text)}>{props.nCompleted}</TextInput>
+            </View>
+            <View style={styles.itemControlContainer}>
+              <Text style={styles.labelText}>Goal:</Text>
+              <TextInput id="goal" keyboardType = 'numeric' style={styles.textBox} onChangeText={(text) => setGoal(text)}>{props.nGoal}</TextInput>
+            </View>
+            <View style={styles.itemControlContainer}>
+              <Pressable style={styles.saveButton} onPress={() => updateData(taskName, taskCompleted, taskGoal, props)}>
+                <Text style={[styles.text, {color:"white"}]}>Save</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      );
+    }
+    else {
+      return (
+        <View style={styles.container}>
+          <TouchableOpacity style={[styles.clickableContainer, {flexGrow: 1}]} onPress={() => incrementData(props)}>
+              <Text style={[styles.text, {width: 75}]}>{props.nCompleted}/{props.nGoal}</Text>
+              <Text style={[styles.text, {flexGrow: 2, textAlign: "left"}]}>{props.taskName}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.clickableContainer} onPress={() => editData(expanded, setExpanded)}>
+              <Text style={[styles.text, {width: 75}]}>
+                <Icon name="caretright" size={20} />
+              </Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
 };
 
 
-function editData() {
-    alert("Editing data")
+function editData(expanded, setExpanded) {
+    if (expanded) {
+      setExpanded(false)
+    }
+    else {
+      setExpanded(true)
+    }
+}
+
+function updateData(name, completed, goal, props) {
+  var tasks = [...props.tasks]
+
+  for (var idx=0; idx<tasks.length; idx++) {
+    if (tasks[idx].taskName === props.taskName) {
+      tasks[idx].taskName = name
+      tasks[idx].goal = goal
+      tasks[idx].completed = completed
+    }
+  }
+  props.setTasks(tasks)
 }
 
 
 function incrementData(props) {
-    var tasks = props.tasks
+    var tasks = [...props.tasks]
 
     for (var idx=0; idx<tasks.length; idx++) {
       if (tasks[idx].taskName === props.taskName) {
@@ -59,4 +119,38 @@ const styles = StyleSheet.create({
       fontSize: 25,
       textAlign: "center",
     },
+    labelText: {
+      font: 'sans-serif',
+      fontSize: 25,
+      textAlign: "left",
+      justifyContent: "flex-start",
+      flexGrow: 1,
+    },
+    textBox: {
+      width: 200,
+      borderWidth: 0.5,
+      borderRadius: 3,
+      height: 50,
+      fontSize: 30,
+      fontWeight: "300",
+      textAlign: "center",
+    },
+    itemControlContainer: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "row",
+      width: "90%",
+      marginVertical: 5,
+    },
+    saveButton: {
+      borderWidth: 0,
+      borderRadius: 3,
+      borderColor: "black",
+      backgroundColor: "#00ff99",
+      color: "white",
+      flexGrow: 1,
+      height: 50,
+      justifyContent: "center"
+    }
 });
