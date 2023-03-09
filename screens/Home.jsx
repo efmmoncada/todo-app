@@ -9,12 +9,12 @@ export function Home({ tasks, setTasks }) {
             <DateDisplay />
             {tasks.length ?
                 tasks.map((task) => (
-                    <ItemDisplay nCompleted={task.completed} nGoal={task.goal} taskName={task.taskName} />
+                    <ItemDisplay nCompleted={task.completed} nGoal={task.goal} taskName={task.taskName} setTasks={setTasks} tasks={tasks}/>
                 )) : null}
-            <ItemDisplay nCompleted="15" nGoal="50" taskName="Pushups" />
+            {/* <ItemDisplay nCompleted="15" nGoal="50" taskName="Pushups" />
             <ItemDisplay nCompleted="1" nGoal="2" taskName="Brush Teeth" />
             <ItemDisplay nCompleted="0" nGoal="30" taskName="Read" />
-            <ItemDisplay nCompleted="1" nGoal="1" taskName="Walk" />
+            <ItemDisplay nCompleted="1" nGoal="1" taskName="Walk" /> */}
             <StatusBar style="auto" />
         </View>
     );

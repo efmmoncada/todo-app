@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/AntDesign'
 export default function ItemDisplay(props) {
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={[styles.clickableContainer, {flexGrow: 1}]} onPress={incrementData}>
+        <TouchableOpacity style={[styles.clickableContainer, {flexGrow: 1}]} onPress={() => incrementData(props)}>
             <Text style={[styles.text, {width: 75}]}>{props.nCompleted}/{props.nGoal}</Text>
             <Text style={[styles.text, {flexGrow: 2, textAlign: "left"}]}>{props.taskName}</Text>
         </TouchableOpacity>
@@ -25,8 +25,15 @@ function editData() {
 }
 
 
-function incrementData() {
-    alert("Incrementing Data")
+function incrementData(props) {
+    var tasks = props.tasks
+
+    for (var idx=0; idx<tasks.length; idx++) {
+      if (tasks[idx].taskName === props.taskName) {
+        tasks[idx].completed++
+      }
+    }
+    props.setTasks(tasks)
 }
 
 
