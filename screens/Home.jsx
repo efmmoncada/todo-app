@@ -11,7 +11,7 @@ export function Home({ tasks, setTasks }) {
                 {tasks.length ?
                     tasks.map((task) => (
                         <ItemDisplay nCompleted={task.completed} nGoal={task.goal} taskName={task.taskName} setTasks={setTasks} tasks={tasks}/>
-                    )) : null}
+                    )) : <Text>No Tasks Available</Text>}
             </ScrollView>
             <StatusBar style="auto" />
         </View>
