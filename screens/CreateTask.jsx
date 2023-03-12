@@ -8,7 +8,6 @@ export default function CreateTask({ tasks, setTasks }) {
     const [frequencyType, setFrequencyType] = useState({});
 
     const frequencyOptions = [
-        { label: 'Yearly', value: 'Year' },
         { label: 'Monthly', value: 'Month' },
         { label: 'Weekly', value: 'Week' },
         { label: 'Daily', value: 'Day' },

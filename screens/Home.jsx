@@ -3,13 +3,17 @@ import { View, StyleSheet, Text, } from "react-native";
 import ItemDisplay from '../item/ItemDisplay';
 
 export function Home({ tasks, setTasks }) {
-  return (
-    <View style={styles.container}>
-      <ItemDisplay nCompleted="3" nGoal="5" taskName="Thingy" />
-      <StatusBar style="auto" />
-    </View>
-  );
-};
+    return (
+        <View style={styles.container}>
+            <DateDisplay />
+            {tasks.length ?
+                tasks.map((task) => (
+                    <ItemDisplay nCompleted={task.completed} nGoal={task.goal} taskName={task.taskName} setTasks={setTasks} />
+                )) : <Text>No Tasks Available</Text>}
+            <StatusBar style="auto" />
+        </View>
+    );
+}
 
 const styles = StyleSheet.create({
     container: {
