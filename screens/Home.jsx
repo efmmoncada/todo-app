@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import DateDisplay from '../date/DateDisplay';
 import { View, StyleSheet, Text, ScrollView } from 'react-native';
 import ItemDisplay from '../item/ItemDisplay';
+import Calendar from '../src/components/Calendar';
 
 export function Home({ tasks, setTasks }) {
     return (
@@ -12,6 +13,7 @@ export function Home({ tasks, setTasks }) {
                 automaticallyAdjustKeyboardInsets={true}
             >
                 <DateDisplay />
+                <Calendar />
                 {tasks.length ? (
                     tasks.map((task) => (
                         <ItemDisplay

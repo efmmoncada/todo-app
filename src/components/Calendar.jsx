@@ -1,72 +1,80 @@
-import { useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { useState } from 'react';
+import { StyleSheet, View, Text } from 'react-native';
 
+/**
+ *
+ * @param {Date} date
+ * @returns {number[]}
+ *
+ * Returns the 7 date numbers of any any given week, starting at the closest past Monday of the supplied date.
+ */
+const getWeekDateNumbers = (date) => {
+    while (date.getDay() !== 1) date.setDate(date.getDate() - 1);
 
+    const dayNumbers = [];
 
+    for (let i = 0; i < 7; i++) {
+        dayNumbers.push(date.getDate());
+        date.setDate(date.getDate() + 1);
+    }
 
-const DaysOfWeek = ['M', 'T', 'W', 'Th', 'F', 'S', 'Su'];
-const startNum = Math.floor(Math.random() * 23) + 1;
-const dayNumbers = new Array(7).fill(0).map((_, i) => i + startNum);
-
-
+    return dayNumbers;
+};
 
 export default function Calendar() {
 
-    const [active, setActive] = useState(2)
+    const DaysOfWeek = ['M', 'T', 'W', 'Th', 'F', 'S', 'Su'];
+    const date = new Date();
+    const dayNumbers = getWeekDateNumbers(date);
+
+
+
+    const [active, setActive] = useState(date.getDay() - 1);
 
 
     return (
-        <View style={styles.container} >
-            <Text style={styles.heading}>Calendar</Text>
+        <View style={styles.container}>
             <View style={styles.inners}>
-                {DaysOfWeek.map((day, i) => <Text key={i} style={styles.text}>{day}</Text>)}
+                {DaysOfWeek.map((day, i) => (
+                    <Text key={i} style={[styles.text, { fontWeight: 'bold'}]}>
+                        {day}
+                    </Text>
+                ))}
             </View>
             <View style={styles.inners}>
-                {dayNumbers.map((num, i) =>
-                        <View key={i} style={i === active ? {...styles.active, ...styles.numberContainer} : styles.numberContainer}>
-                            <Text style={styles.text}>{num}</Text>
-                        </View>)}
+                {dayNumbers.map((num, i) => (
+                    <View
+                        key={i}
+                        style={i === active ? styles.active : {}}
+                    >
+                        <Text style={styles.text}>{num}</Text>
+                    </View>
+                ))}
             </View>
-
-
         </View>
     );
-
-
 }
 
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
-        padding: 10,
-        flexDirection: "column",
-        justifyContent: "space-evenly",
-        backgroundColor: '#DED4B9',
-        width: "80%",
-        height: "40%",
+        flexDirection: 'column',
+        justifyContent: 'space-evenly',
+        width: '95%',
+        paddingVertical: 20,
+        paddingHorizontal: 10,
         borderRadius: 15,
+        backgroundColor: '#DED4B9',
     },
     inners: {
-        flexDirection: "row",
-        justifyContent: "space-around",
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginVertical: 8,
     },
     text: {
-        flex: 1,
-        fontSize: 30,
-        textAlign: "center",
-        aspectRatio: 1 / 1
-    },
-    heading: {
-        fontSize: 35,
-        color: "#838383",
-        marginLeft: 20,
+        fontSize: 20,
     },
     active: {
-        borderWidth: 5,
-        borderColor: "#f00",
-        borderRadius: "50%",
+        borderBottomWidth: 4,
+        borderColor: '#f00',
     },
-    numberContainer: {
-        height: 65,
-    }
 });
