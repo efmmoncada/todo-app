@@ -3,15 +3,15 @@ import { TextInput, View, Text, StyleSheet, Pressable } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 
 export default function CreateTask({ tasks, setTasks }) {
-    const [taskName, setTaskName] = useState('Title');
-    const [goal, setGoal] = useState(0);
-    const [frequency, setFrequency] = useState({});
-
     const frequencyOptions = [
         { label: 'Monthly', value: 'Month' },
         { label: 'Weekly', value: 'Week' },
         { label: 'Daily', value: 'Day' },
     ];
+
+    const [taskName, setTaskName] = useState('Title');
+    const [goal, setGoal] = useState(0);
+    const [frequency, setFrequency] = useState({ label: "Select Frequency", value: undefined});
 
     const handleSubmit = () => {
         const task = {
@@ -21,10 +21,11 @@ export default function CreateTask({ tasks, setTasks }) {
             frequencyType: frequency.value,
         };
 
-        console.log(task);
-
         setTasks((existingTasks) => [task, ...existingTasks]);
 
+        setTaskName('');
+        setGoal(0);
+        setFrequency({});
         // TODO: navigate back to main page
     };
 
