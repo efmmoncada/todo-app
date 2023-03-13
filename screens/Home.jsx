@@ -1,20 +1,42 @@
 import { StatusBar } from 'expo-status-bar';
-import { View, StyleSheet, Text } from "react-native";
+import DateDisplay from '../date/DateDisplay';
+import { View, StyleSheet, Text, ScrollView } from 'react-native';
+import ItemDisplay from '../item/ItemDisplay';
 
-export function Home() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-};
+export function Home({ tasks, setTasks }) {
+    return (
+        <View style={styles.container}>
+            <ScrollView
+                keyboardShouldPersistTaps="handled"
+                contentContainerStyle={styles.container}
+                automaticallyAdjustKeyboardInsets={true}
+            >
+                <DateDisplay />
+                {tasks.length ? (
+                    tasks.map((task) => (
+                        <ItemDisplay
+                            key={task.taskName}
+                            nCompleted={task.completed}
+                            nGoal={task.goal}
+                            taskName={task.taskName}
+                            setTasks={setTasks}
+                            tasks={tasks}
+                        />
+                    ))
+                ) : (
+                    <Text>No Tasks Available</Text>
+                )}
+            </ScrollView>
+            <StatusBar style="auto" />
+        </View>
+    );
+}
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'start',
     },
-  });
+});
