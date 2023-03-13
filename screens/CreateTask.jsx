@@ -3,28 +3,56 @@ import { TextInput, View, Text, StyleSheet, Pressable } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 
 export default function CreateTask({ tasks, setTasks }) {
-    const [taskName, setTaskName] = useState('Title');
-    const [goal, setGoal] = useState(0);
-    const [frequency, setFrequency] = useState({});
-
     const frequencyOptions = [
         { label: 'Monthly', value: 'Month' },
         { label: 'Weekly', value: 'Week' },
         { label: 'Daily', value: 'Day' },
     ];
 
+    const [taskName, setTaskName] = useState('Title');
+    const [goal, setGoal] = useState(0);
+    const [frequency, setFrequency] = useState({ label: "Select Frequency", value: null});
+
+    /**
+     *
+     * @param {string} name
+     * @param {number} goal
+     * @param {object} frequency
+     * @param {string?} frequency.value
+     * @returns {boolean}
+     *
+     * Returns whether user has supplied all values needed to create a new task.
+     */
+    const validateSubmit = (name, goal, frequency) => {
+        return (
+            !!name
+            && goal > 0
+            && frequency.value
+        )
+    };
+
+    /**
+     * Composesa new task and adds it to the list of tasks.
+     */
     const handleSubmit = () => {
-        const task = {
+
+        if (!validateSubmit(taskName, goal, frequency)) {
+            alert("Missing Required Field");
+            return;
+        }
+
+        const newTask = {
             taskName,
             goal,
             completed: 0,
             frequencyType: frequency.value,
         };
 
-        console.log(task);
+        setTasks((existingTasks) => [newTask, ...existingTasks]);
 
-        setTasks((existingTasks) => [task, ...existingTasks]);
-
+        setTaskName('');
+        setGoal(0);
+        setFrequency({});
         // TODO: navigate back to main page
     };
 
