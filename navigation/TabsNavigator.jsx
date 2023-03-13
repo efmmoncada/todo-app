@@ -7,7 +7,7 @@ const Tabs = createBottomTabNavigator();
 
 export function TabsNavigator({ tasks, setTasks, setTasksTemp }) {
     return (
-        <Tabs.Navigator initialRouteName="Create">
+        <Tabs.Navigator initialRouteName="Home">
             <Tabs.Screen name="Home" children={(props) => <Home tasks={tasks} setTasks={setTasks} {...props} />} />
             <Tabs.Screen
                 name="Create"
