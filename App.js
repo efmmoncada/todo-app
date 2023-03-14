@@ -54,14 +54,14 @@ function App() {
     // loads previously saved task data from device storage and populates app state.
     useEffect(() => {
       getDataFromStorage(STORAGE_KEY)
-        .then(data => setTasks(data))
+        .then(data => setTasks(data || []))
         .catch(e => console.log(e));
     }, []);
 
     // updates device stored data whenever a change to state occurs.
     useEffect(() => {
       writeDataToStorage(STORAGE_KEY, tasks);
-    }, [tasks])
+    }, [tasks]);
 
     return (
         <NavigationContainer>
