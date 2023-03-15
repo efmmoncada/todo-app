@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {View, StyleSheet, Text, Dimensions, TouchableOpacity, TextInput, Pressable} from "react-native";
 import Icon from 'react-native-vector-icons/AntDesign'
 import { Keyboard } from "react-native";
+import { AppSettings, colorStyle } from "../AppSettings";
 
 export default function ItemDisplay(props) {
+    const {darkMode} = useContext(AppSettings)
+
     const [expanded, setExpanded] = useState(false)
     const [taskName, setName] = useState(props.taskName)
     const [taskCompleted, setCompleted] = useState(props.nCompleted)
@@ -17,7 +20,7 @@ export default function ItemDisplay(props) {
               {taskCompleted==taskGoal ? 
                 <Text style={[styles.text, {width: 75}]}><Icon name="check" size={40} /></Text> : 
                 <Text style={[styles.text, {width: 75}]}>{props.nCompleted}/{props.nGoal}</Text>}
-              <Text style={[styles.text, {flexGrow: 2, textAlign: "left"}]}>{props.taskName}</Text>
+                <Text style={[styles.text, {flexGrow: 2, textAlign: "left"}]}>{props.taskName}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.clickableContainer} onPress={() => editData(expanded, setExpanded)}>
                 <Text style={[styles.text, {width: 75}]}>
@@ -27,20 +30,20 @@ export default function ItemDisplay(props) {
           </View>
           <View style={{alignItems: "center"}}>
             <View style={styles.itemControlContainer}>
-              <Text style={styles.labelText}>Task Name:</Text>
-              <TextInput id="name" style={styles.textBox} onChangeText={(text) => setName(text)}>{props.taskName}</TextInput>
+              <Text style={[styles.labelText, colorStyle(darkMode)]}>Task Name:</Text>
+              <TextInput id="name" style={[styles.textBox, colorStyle(darkMode)]} onChangeText={(text) => setName(text)}>{props.taskName}</TextInput>
             </View>
             <View style={styles.itemControlContainer}>
-              <Text style={styles.labelText}>Completed:</Text>
-              <TextInput id="completed" keyboardType = 'numeric' style={styles.textBox} onChangeText={(text) => setCompleted(text)}>{props.nCompleted}</TextInput>
+              <Text style={[styles.labelText, colorStyle(darkMode)]}>Completed:</Text>
+              <TextInput id="completed" keyboardType = 'numeric' style={[styles.textBox, colorStyle(darkMode)]} onChangeText={(text) => setCompleted(text)}>{props.nCompleted}</TextInput>
             </View>
             <View style={styles.itemControlContainer}>
-              <Text style={styles.labelText}>Goal:</Text>
-              <TextInput id="goal" keyboardType = 'numeric' style={styles.textBox} onChangeText={(text) => setGoal(text)}>{props.nGoal}</TextInput>
+              <Text style={[styles.labelText, colorStyle(darkMode)]}>Goal:</Text>
+              <TextInput id="goal" keyboardType = 'numeric' style={[styles.textBox, colorStyle(darkMode)]} onChangeText={(text) => setGoal(text)}>{props.nGoal}</TextInput>
             </View>
             <View style={styles.itemControlContainer}>
               <Pressable style={styles.saveButton} onPress={() => updateData(taskName, taskCompleted, taskGoal, setCompleted, props)}>
-                <Text style={[styles.text, {color:"white"}]}>Save</Text>
+                <Text style={[styles.text]}>Save</Text>
               </Pressable>
             </View>
           </View>
@@ -54,7 +57,7 @@ export default function ItemDisplay(props) {
               {taskCompleted==taskGoal ? 
                 <Text style={[styles.text, {width: 75}]}><Icon name="check" size={40} /></Text> : 
                 <Text style={[styles.text, {width: 75}]}>{props.nCompleted}/{props.nGoal}</Text>}
-              <Text style={[styles.text, {flexGrow: 2, textAlign: "left"}]}>{props.taskName}</Text>
+                <Text style={[styles.text, {flexGrow: 2, textAlign: "left"}]}>{props.taskName}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.clickableContainer} onPress={() => editData(expanded, setExpanded)}>
               <Text style={[styles.text, {width: 75}]}>

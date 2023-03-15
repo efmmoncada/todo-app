@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { TabsNavigator } from './navigation/TabsNavigator';
+import { AppSettingsProvider } from './AppSettings';
 
 function App() {
     // tasks will hold an array of objects, where each object will represent a task.
@@ -65,7 +66,9 @@ function App() {
 
     return (
         <NavigationContainer>
-            <TabsNavigator tasks={tasks} setTasks={updateTasks} setTasksTemp={setTasks} />
+            <AppSettingsProvider>
+              <TabsNavigator tasks={tasks} setTasks={updateTasks} setTasksTemp={setTasks} />
+            </AppSettingsProvider>
         </NavigationContainer>
     );
 }
