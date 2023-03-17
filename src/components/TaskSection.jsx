@@ -21,7 +21,6 @@ export default function TaskSection({ tasks, title, setTasks }) {
                         nGoal={task.goal}
                         taskName={task.taskName}
                         setTasks={setTasks}
-                        tasks={tasks}
                     />
                 ))
             ) : (

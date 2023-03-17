@@ -14,8 +14,8 @@ export default function ItemDisplay(props) {
         <View>
           <View style={taskCompleted==taskGoal ? styles.containerComplete : styles.container}>
             <TouchableOpacity style={[styles.clickableContainer, {flexGrow: 1}]} onPress={() => incrementData(props, setCompleted)}>
-              {taskCompleted==taskGoal ? 
-                <Text style={[styles.text, {width: 75}]}><Icon name="check" size={40} /></Text> : 
+              {taskCompleted==taskGoal ?
+                <Text style={[styles.text, {width: 75}]}><Icon name="check" size={40} /></Text> :
                 <Text style={[styles.text, {width: 75}]}>{props.nCompleted}/{props.nGoal}</Text>}
               <Text style={[styles.text, {flexGrow: 2, textAlign: "left"}]}>{props.taskName}</Text>
             </TouchableOpacity>
@@ -51,8 +51,8 @@ export default function ItemDisplay(props) {
       return (
         <View style={taskCompleted==taskGoal ? styles.containerComplete : styles.container}>
           <TouchableOpacity style={[styles.clickableContainer, {flexGrow: 1}]} onPress={() => incrementData(props, setCompleted)}>
-              {taskCompleted==taskGoal ? 
-                <Text style={[styles.text, {width: 75}]}><Icon name="check" size={40} /></Text> : 
+              {taskCompleted==taskGoal ?
+                <Text style={[styles.text, {width: 75}]}><Icon name="check" size={40} /></Text> :
                 <Text style={[styles.text, {width: 75}]}>{props.nCompleted}/{props.nGoal}</Text>}
               <Text style={[styles.text, {flexGrow: 2, textAlign: "left"}]}>{props.taskName}</Text>
           </TouchableOpacity>
@@ -77,27 +77,32 @@ function editData(expanded, setExpanded) {
 }
 
 function updateData(name, completed, goal, setCompleted, props) {
-  var tasks = [...props.tasks]
 
-  for (var idx=0; idx<tasks.length; idx++) {
-    if (tasks[idx].taskName === props.taskName) {
-      tasks[idx].taskName = name
-      tasks[idx].goal = goal
-      if (completed <= goal) {
-        tasks[idx].completed = completed
-      } else {
-        tasks[idx].completed = goal
-        setCompleted(goal)
+  props.setTasks((existingTasks) => {
+    var tasks = [...existingTasks]
+    for (var idx=0; idx<tasks.length; idx++) {
+      if (tasks[idx].taskName === props.taskName) {
+        tasks[idx].taskName = name
+        tasks[idx].goal = goal
+        if (completed <= goal) {
+          tasks[idx].completed = completed
+        } else {
+          tasks[idx].completed = goal
+          setCompleted(goal)
+        }
       }
     }
-  }
-  props.setTasks(tasks)
+
+    return tasks;
+  });
   Keyboard.dismiss()
 }
 
 
 function incrementData(props, setCompleted) {
-    var tasks = [...props.tasks]
+
+  props.setTasks((existingTasks) => {
+    var tasks = [...existingTasks]
 
     for (var idx=0; idx<tasks.length; idx++) {
       if (tasks[idx].taskName === props.taskName) {
@@ -107,7 +112,9 @@ function incrementData(props, setCompleted) {
           }
       }
     }
-    props.setTasks(tasks)
+
+    return tasks;
+  });
 }
 
 
