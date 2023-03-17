@@ -3,6 +3,7 @@ import DateDisplay from '../date/DateDisplay';
 import { View, StyleSheet, Text, ScrollView } from 'react-native';
 import ItemDisplay from '../item/ItemDisplay';
 import Calendar from '../src/components/Calendar';
+import TaskSection from '../src/components/TaskSection';
 
 export function Home({ tasks, setTasks }) {
     return (
@@ -15,16 +16,11 @@ export function Home({ tasks, setTasks }) {
                 <DateDisplay />
                 <Calendar />
                 {tasks.length ? (
-                    tasks.map((task) => (
-                        <ItemDisplay
-                            key={task.taskName}
-                            nCompleted={task.completed}
-                            nGoal={task.goal}
-                            taskName={task.taskName}
-                            setTasks={setTasks}
-                            tasks={tasks}
-                        />
-                    ))
+                    <ScrollView>
+                        <TaskSection title='Daily' tasks={tasks.filter(task => task.frequencyType === 'Day')} setTasks={setTasks} />
+                        <TaskSection title='Weekly' tasks={tasks.filter(task => task.frequencyType === 'Week')} setTasks={setTasks} />
+                        <TaskSection title='Monthly' tasks={tasks.filter(task => task.frequencyType === 'Month')} setTasks={setTasks} />
+                    </ScrollView>
                 ) : (
                     <Text>No Tasks Available</Text>
                 )}
