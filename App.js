@@ -3,14 +3,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { TabsNavigator } from './navigation/TabsNavigator';
 import { AppSettingsProvider } from './AppSettings';
+import { TaskTypes, StorageKeys } from './constants';
 
 function App() {
     // tasks will hold an array of objects, where each object will represent a task.
     // to add a task, a component should recive the setTasks function as a prop, and return a new array,
     // in which the previous state is spread, and the new task added to the front.
     const [tasks, setTasks] = useState([]);
-
-    const STORAGE_KEY = "@tasks";
 
     /**
      * @param {string} key
@@ -21,7 +20,7 @@ function App() {
     const getDataFromStorage = async (key) => {
       try {
         const json = await AsyncStorage.getItem(key);
-        if (!json) throw new Error("Could not read data from storage");
+        if (!json) throw new Error(`Data parsed from storage at key "${key}" is null`);
         const data = JSON.parse(json);
 
         return data;
@@ -43,20 +42,30 @@ function App() {
         if (!json) return;
         await AsyncStorage.setItem(key, json);
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
     }
 
     // loads previously saved task data from device storage and populates app state.
     useEffect(() => {
-      getDataFromStorage(STORAGE_KEY)
-        .then(data => setTasks(data || []))
-        .catch(e => console.log(e));
+      Object.values(StorageKeys).forEach(storageKey => {
+        getDataFromStorage(storageKey)
+          .then(data => {
+            if (data) setTasks((existing) => [...existing, ...data]);
+          })
+          .catch(e => console.error(e));
+      });
     }, []);
 
     // updates device stored data whenever a change to state occurs.
     useEffect(() => {
-      writeDataToStorage(STORAGE_KEY, tasks);
+      const daily_tasks = tasks.filter((task) => task.frequencyType === TaskTypes.Day);
+      const weekly_tasks = tasks.filter((task) => task.frequencyType === TaskTypes.Week);
+      const monthly_tasks = tasks.filter((task) => task.frequencyType === TaskTypes.Month);
+
+      writeDataToStorage(StorageKeys.DAILY_TASKS, daily_tasks);
+      writeDataToStorage(StorageKeys.WEEKLY_TASKS, weekly_tasks);
+      writeDataToStorage(StorageKeys.MONTHLY_TASKS, monthly_tasks);
     }, [tasks]);
 
     return (

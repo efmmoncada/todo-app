@@ -3,14 +3,15 @@ import { TextInput, View, Text, StyleSheet, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Dropdown } from 'react-native-element-dropdown';
 import Screens from './ScreenNames';
+import { TaskTypes } from '../constants';
 
 export default function CreateTask({ tasks, setTasks }) {
     const navigation = useNavigation()
 
     const frequencyOptions = [
-        { label: 'Monthly', value: 'Month' },
-        { label: 'Weekly', value: 'Week' },
-        { label: 'Daily', value: 'Day' },
+        { label: 'Monthly', value: TaskTypes.Month },
+        { label: 'Weekly', value: TaskTypes.Week },
+        { label: 'Daily', value: TaskTypes.Day },
     ];
 
     const [taskName, setTaskName] = useState('Title');
