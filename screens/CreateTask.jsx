@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { TextInput, View, Text, StyleSheet, Pressable } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Dropdown } from 'react-native-element-dropdown';
+import Screens from './ScreenNames';
 
 export default function CreateTask({ tasks, setTasks }) {
+    const navigation = useNavigation()
+
     const frequencyOptions = [
         { label: 'Monthly', value: 'Month' },
         { label: 'Weekly', value: 'Week' },
@@ -53,7 +57,7 @@ export default function CreateTask({ tasks, setTasks }) {
         setTaskName('');
         setGoal(0);
         setFrequency({});
-        // TODO: navigate back to main page
+        navigation.navigate(Screens.Home);
     };
 
     return (
@@ -64,7 +68,8 @@ export default function CreateTask({ tasks, setTasks }) {
                     style={styles.input}
                     editable
                     onChangeText={(val) => setTaskName(val)}
-                    placeholder={taskName}
+                    placeholder="Title"
+                    value={taskName}
                 />
             </View>
 
@@ -73,7 +78,8 @@ export default function CreateTask({ tasks, setTasks }) {
                     style={styles.input}
                     editable
                     onChangeText={(val) => setGoal(parseInt(val))}
-                    placeholder={`${goal}`}
+                    placeholder="0"
+                    value={goal > 0 ? goal.toString() : undefined}
                 />
 
                 <Dropdown
