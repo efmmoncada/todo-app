@@ -47,11 +47,6 @@ function App() {
       }
     }
 
-    function updateTasks(new_tasks) {
-      setTasks(new_tasks)
-      writeDataToStorage();
-    }
-
     // loads previously saved task data from device storage and populates app state.
     useEffect(() => {
       getDataFromStorage(STORAGE_KEY)
@@ -67,7 +62,7 @@ function App() {
     return (
         <NavigationContainer>
             <AppSettingsProvider>
-              <TabsNavigator tasks={tasks} setTasks={updateTasks} setTasksTemp={setTasks} />
+              <TabsNavigator tasks={tasks} setTasks={setTasks} />
             </AppSettingsProvider>
         </NavigationContainer>
     );

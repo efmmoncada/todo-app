@@ -8,7 +8,7 @@ import { useContext } from 'react';
 
 const Tabs = createBottomTabNavigator();
 
-export function TabsNavigator({ tasks, setTasks, setTasksTemp }) {
+export function TabsNavigator({ tasks, setTasks }) {
     const {darkMode} = useContext(AppSettings)
     const screenOptions = {
         tabBarStyle:{
@@ -26,7 +26,7 @@ export function TabsNavigator({ tasks, setTasks, setTasksTemp }) {
             <Tabs.Screen name="Home" children={(props) => <Home tasks={tasks} setTasks={setTasks} {...props} />} />
             <Tabs.Screen
                 name="Create"
-                children={(props) => <CreateTask tasks={tasks} setTasks={setTasksTemp} {...props} />}
+                children={(props) => <CreateTask tasks={tasks} setTasks={setTasks} {...props} />}
             />
              <Tabs.Screen
                 name="Settings"
