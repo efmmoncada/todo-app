@@ -13,7 +13,7 @@ export default function CreateTask({ tasks, setTasks }) {
         { label: 'Daily', value: 'Day' },
     ];
 
-    const [taskName, setTaskName] = useState('Title');
+    const [taskName, setTaskName] = useState('');
     const [goal, setGoal] = useState(0);
     const [frequency, setFrequency] = useState({ label: "Select Frequency", value: null});
 
