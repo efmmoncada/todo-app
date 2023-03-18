@@ -3,11 +3,15 @@ import DateDisplay from '../date/DateDisplay';
 import { View, StyleSheet, Text, ScrollView } from 'react-native';
 import ItemDisplay from '../item/ItemDisplay';
 import Calendar from '../src/components/Calendar';
+import { AppSettings, backgroundStyle } from '../AppSettings';
+import { useContext } from 'react';
 import TaskSection from '../src/components/TaskSection';
 
 export function Home({ tasks, setTasks }) {
+    const {darkMode} = useContext(AppSettings)
+
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, backgroundStyle(darkMode)]}>
             <ScrollView
                 keyboardShouldPersistTaps="handled"
                 contentContainerStyle={styles.container}
@@ -33,7 +37,6 @@ export function Home({ tasks, setTasks }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'start',
     },

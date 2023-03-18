@@ -1,8 +1,12 @@
 import React from "react";
 import {View, StyleSheet, Text, Dimensions} from "react-native";
+import { AppSettings, backgroundStyle, colorStyle } from "../AppSettings";
+import { useContext } from "react";
 
 
 export default function DateDisplay() {
+    const {darkMode} = useContext(AppSettings)
+
     var today = new Date();
     var days = [
       "Sunday",
@@ -34,9 +38,9 @@ export default function DateDisplay() {
     var today  = month + " " + date + ", " + year
 
     return (
-      <View style={styles.container}>
-        <Text style={styles.big_text}>{day}</Text>
-        <Text style={styles.text}>{today}</Text>
+      <View style={[styles.container, backgroundStyle(darkMode)]}>
+        <Text style={[styles.big_text, colorStyle(darkMode)]}>{day}</Text>
+        <Text style={[styles.text, colorStyle(darkMode)]}>{today}</Text>
       </View>
     );
 };
