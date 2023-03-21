@@ -12,6 +12,15 @@ export default function({ tasks, setTasks }) {
         { label: "Dark", value: true },
     ];
 
+    function getModeStart() {
+        if (darkMode) {
+            return 1
+        }
+        else {
+            return 0
+        }
+    }
+
     const times = [
         { label: "12:00 AM", value: "0000" },
         { label: "1:00 AM", value: "0100" },
@@ -20,13 +29,21 @@ export default function({ tasks, setTasks }) {
         { label: "4:00 AM", value: "0400" },
     ]
 
+    function getTimeStart() {
+        for (var i=0; i<times.length; i++) {
+            if (times[i].value === resetTime) {
+                return i
+            }
+        }
+    }
+
     return(
         <View style={[{height: "100%"}, backgroundStyle(darkMode)]}>
             <View style={styles.container}>
                 <Text style={[styles.text, colorStyle(darkMode)]}>Tasks reset at: </Text>
                 <SwitchSelector
                     options={times}
-                    initial={0}
+                    initial={getTimeStart()}
                     onPress={value => setResetTime(value)}
                     backgroundColor={darkMode ? "#757575" : "white"} 
                 />
@@ -35,7 +52,7 @@ export default function({ tasks, setTasks }) {
                 <Text style={[styles.text, colorStyle(darkMode)]}>Darkmode:</Text>
                 <SwitchSelector
                     options={mode}
-                    initial={0}
+                    initial={getModeStart()}
                     onPress={value => setDarkMode(value)}
                     backgroundColor={darkMode ? "#757575" : "white"}
                 />
