@@ -48,7 +48,7 @@ function App() {
 
     // loads previously saved task data from device storage and populates app state.
     useEffect(() => {
-      Object.values(StorageKeys).forEach(storageKey => {
+      [StorageKeys.DAILY_TASKS, StorageKeys.WEEKLY_TASKS, StorageKeys.MONTHLY_TASKS].forEach(storageKey => {
         getDataFromStorage(storageKey)
           .then(data => {
             if (data) setTasks((existing) => [...existing, ...data]);
