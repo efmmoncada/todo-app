@@ -2,8 +2,9 @@ import React, { useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import SwitchSelector from "react-native-switch-selector";
 import { AppSettings, colorStyle, backgroundStyle } from "../AppSettings";
+import ItemList from "../item/ItemList";
 
-export default function() {
+export default function({ tasks, setTasks }) {
     const {darkMode, resetTime, setDarkMode, setResetTime} = useContext(AppSettings)
 
     const mode = [
@@ -41,6 +42,12 @@ export default function() {
             </View>
             <View style={styles.container}>
                 <Text style={[styles.text, colorStyle(darkMode)]}>Edit tasks:</Text>
+                <View>
+                    <ItemList
+                        tasks={tasks}
+                        setTasks={setTasks}
+                    />
+                </View>
             </View>
         </View>
     );
