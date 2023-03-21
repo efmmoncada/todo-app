@@ -62,10 +62,10 @@ function App() {
         .catch((e) => console.error(e));
     });
 
+    const currDate = new Date();
     // reset tasks at appropriate timeframe
     getDataFromStorage(StorageKeys.LAST_OPENED_DATE).then((date) => {
       const lastOpenedDate = new Date(date);
-      const currDate = new Date();
 
       setTasks((existing) => {
         return existing.map((task) => {
@@ -79,6 +79,8 @@ function App() {
         });
       });
     });
+
+    writeDataToStorage(StorageKeys.LAST_OPENED_DATE, currDate);
   }, []);
 
   // updates device stored data whenever a change to state occurs.
