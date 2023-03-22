@@ -16,6 +16,9 @@ export function TabsNavigator({ tasks, setTasks }) {
         },
         tabBarInactiveTintColor: darkMode ? "#4d4d4d" : "#8e8e8e",
         headerShown: true,
+        sceneContainerStyle: {
+            color: "red"
+        },
         headerStyle: {
             backgroundColor: darkMode ? "#b3b3b3" : "white",
         }
@@ -23,7 +26,10 @@ export function TabsNavigator({ tasks, setTasks }) {
 
     return (
         <Tabs.Navigator initialRouteName="Home" {...{screenOptions}}>
-            <Tabs.Screen name="Home" children={(props) => <Home tasks={tasks} setTasks={setTasks} {...props} />} />
+            <Tabs.Screen 
+                name="Home" 
+                children={(props) => <Home tasks={tasks} setTasks={setTasks} {...props} />} 
+            />
             <Tabs.Screen
                 name="Create"
                 children={(props) => <CreateTask tasks={tasks} setTasks={setTasks} {...props} />}

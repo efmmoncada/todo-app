@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import SwitchSelector from "react-native-switch-selector";
 import { AppSettings, colorStyle, backgroundStyle } from "../AppSettings";
 import ItemList from "../item/ItemList";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function({ tasks, setTasks }) {
     const {darkMode, resetTime, setDarkMode, setResetTime} = useContext(AppSettings)
@@ -38,6 +39,7 @@ export default function({ tasks, setTasks }) {
     }
 
     return(
+        <ScrollView>
         <View style={[{height: "100%"}, backgroundStyle(darkMode)]}>
             <View style={styles.container}>
                 <Text style={[styles.text, colorStyle(darkMode)]}>Tasks reset at: </Text>
@@ -67,6 +69,7 @@ export default function({ tasks, setTasks }) {
                 </View>
             </View>
         </View>
+        </ScrollView>
     );
 }
 
