@@ -18,7 +18,7 @@ function AppSettingsProvider(props) {
           console.log(e);
         }
     }
-    
+
     const writeContextToStorage = async (data) => {
         try {
           const json = JSON.stringify(data);
@@ -37,10 +37,10 @@ function AppSettingsProvider(props) {
             console.log(data)})
           .catch(e => console.log(e));
     }, []);
-  
+
     useEffect(() => {
         data = {
-            "darkMode": darkMode, 
+            "darkMode": darkMode,
             "resetTime": resetTime,
         }
         writeContextToStorage(data);

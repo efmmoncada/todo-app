@@ -47,7 +47,7 @@ export default function({ tasks, setTasks }) {
                     options={times}
                     initial={getTimeStart()}
                     onPress={value => setResetTime(value)}
-                    backgroundColor={darkMode ? "#757575" : "white"} 
+                    backgroundColor={darkMode ? "#757575" : "white"}
                 />
             </View>
             <View style={styles.container}>

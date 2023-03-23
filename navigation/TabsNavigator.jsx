@@ -5,6 +5,7 @@ import CreateTask from '../screens/CreateTask';
 import Settings from '../screens/Settings';
 import { AppSettings, backgroundStyle, colorStyle } from '../AppSettings';
 import { useContext } from 'react';
+import Screens from '../screens/ScreenNames';
 
 const Tabs = createBottomTabNavigator();
 
@@ -25,17 +26,14 @@ export function TabsNavigator({ tasks, setTasks }) {
     };
 
     return (
-        <Tabs.Navigator initialRouteName="Home" {...{screenOptions}}>
-            <Tabs.Screen 
-                name="Home" 
-                children={(props) => <Home tasks={tasks} setTasks={setTasks} {...props} />} 
-            />
+        <Tabs.Navigator initialRouteName={Screens.Home} {...{screenOptions}}>
+            <Tabs.Screen name={Screens.Home} children={(props) => <Home tasks={tasks} setTasks={setTasks} {...props} />} />
             <Tabs.Screen
-                name="Create"
+                name={Screens.CreateTasks}
                 children={(props) => <CreateTask tasks={tasks} setTasks={setTasks} {...props} />}
             />
              <Tabs.Screen
-                name="Settings"
+                name={Screens.Settings}
                 children={(props) => <Settings tasks={tasks} setTasks={setTasks} {...props} />}
             />
         </Tabs.Navigator>
