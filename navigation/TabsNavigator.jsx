@@ -17,6 +17,9 @@ export function TabsNavigator({ tasks, setTasks }) {
         },
         tabBarInactiveTintColor: darkMode ? "#4d4d4d" : "#8e8e8e",
         headerShown: true,
+        sceneContainerStyle: {
+            color: "red"
+        },
         headerStyle: {
             backgroundColor: darkMode ? "#b3b3b3" : "white",
         }
