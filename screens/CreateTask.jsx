@@ -98,7 +98,7 @@ export default function CreateTask({ tasks, setTasks }) {
             </View>
 
             <View style={styles.lineItem}>
-                <Pressable style={styles.actionButton}>
+                <Pressable onPress={() => navigation.navigate(Screens.Home)} style={styles.actionButton}>
                     <Text>Cancel</Text>
                 </Pressable>
 
