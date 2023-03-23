@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { TextInput, View, Text, StyleSheet, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Dropdown } from 'react-native-element-dropdown';
 import Screens from './ScreenNames';
 import { TaskTypes } from '../constants';
+import { AppSettings, backgroundStyle } from '../AppSettings';
 
 export default function CreateTask({ tasks, setTasks }) {
+    const {darkMode} = useContext(AppSettings)
     const navigation = useNavigation()
 
     const frequencyOptions = [
@@ -62,7 +64,7 @@ export default function CreateTask({ tasks, setTasks }) {
     };
 
     return (
-        <View>
+        <View style={[{ flex: 1 }, backgroundStyle(darkMode)]}>
             <View style={styles.lineItem}>
                 <Text style={styles.label}>Task Name:</Text>
                 <TextInput

@@ -39,7 +39,7 @@ export default function({ tasks, setTasks }) {
     }
 
     return(
-        <ScrollView>
+        <ScrollView contentContainerStyle={{ flex: 1 }}>
         <View style={[{height: "100%"}, backgroundStyle(darkMode)]}>
             <View style={styles.container}>
                 <Text style={[styles.text, colorStyle(darkMode)]}>Tasks reset at: </Text>
