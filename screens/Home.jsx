@@ -7,7 +7,7 @@ import { AppSettings, backgroundStyle } from '../AppSettings';
 import { useContext } from 'react';
 import TaskSection from '../src/components/TaskSection';
 
-export function Home({ tasks, setTasks }) {
+export function Home({ tasks, setTasks, selectedDate, setSelectedDate }) {
     const {darkMode} = useContext(AppSettings)
 
     return (
@@ -17,8 +17,8 @@ export function Home({ tasks, setTasks }) {
                 contentContainerStyle={styles.container}
                 automaticallyAdjustKeyboardInsets={true}
             >
-                <DateDisplay />
-                <Calendar />
+                <DateDisplay selectedDate={selectedDate} />
+                <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
                 {tasks.length ? (
                     <ScrollView>
                         <TaskSection title='Daily' tasks={tasks.filter(task => task.frequencyType === 'Day')} setTasks={setTasks} />

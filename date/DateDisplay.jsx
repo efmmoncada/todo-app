@@ -4,10 +4,10 @@ import { AppSettings, backgroundStyle, colorStyle } from "../AppSettings";
 import { useContext } from "react";
 
 
-export default function DateDisplay() {
+export default function DateDisplay({ selectedDate }) {
     const {darkMode} = useContext(AppSettings)
 
-    var today = new Date();
+    var today = selectedDate;
     var days = [
       "Sunday",
       "Monday",
@@ -31,7 +31,8 @@ export default function DateDisplay() {
       "November",
       "December"
     ]
-    var day = days[today.getDay()]
+
+    var day = days[today.getDay()];
     var month = months[today.getMonth()]
     var date = today.getDate()
     var year = today.getFullYear()

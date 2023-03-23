@@ -11,11 +11,14 @@ function getWeek(date) {
   return Math.ceil(days / 7);
 }
 
+const todaysDate = new Date();
+
 function App() {
   // tasks will hold an array of objects, where each object will represent a task.
   // to add a task, a component should recive the setTasks function as a prop, and return a new array,
   // in which the previous state is spread, and the new task added to the front.
   const [tasks, setTasks] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(todaysDate);
 
   /**
    * @param {string} key
@@ -97,7 +100,7 @@ function App() {
   return (
     <NavigationContainer>
       <AppSettingsProvider>
-        <TabsNavigator tasks={tasks} setTasks={setTasks} />
+        <TabsNavigator tasks={tasks} setTasks={setTasks} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
       </AppSettingsProvider>
     </NavigationContainer>
   );

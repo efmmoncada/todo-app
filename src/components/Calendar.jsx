@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { useEffect, useState } from 'react';
+import { StyleSheet, View, Text, Pressable } from 'react-native';
+
 
 /**
  *
@@ -8,47 +9,58 @@ import { StyleSheet, View, Text } from 'react-native';
  *
  * Returns the 7 date numbers of any any given week, starting at the closest past Monday of the supplied date.
  */
-const getWeekDateNumbers = (date) => {
-    while (date.getDay() !== 1) date.setDate(date.getDate() - 1);
+const getWeekDates = () => {
+    const start = new Date();
+    start.setDate(start.getDate() - 4);
 
-    const dayNumbers = [];
+    const end = new Date();
+    end.setDate(end.getDate() + 3);
 
-    for (let i = 0; i < 7; i++) {
-        dayNumbers.push(date.getDate());
-        date.setDate(date.getDate() + 1);
+    let dayNumbers = [];
+    for (const date = start; date < end; date.setDate(date.getDate() + 1) ) {
+        dayNumbers.push(new Date(date.getTime()))
     }
-
     return dayNumbers;
 };
 
-export default function Calendar() {
+const DayAbbrv = {
+    0: "Su",
+    1: "M",
+    2: "T",
+    3: "W",
+    4: "Th",
+    5: "F",
+    6: "S",
+};
 
-    const DaysOfWeek = ['M', 'T', 'W', 'Th', 'F', 'S', 'Su'];
-    const date = new Date();
-    const dayNumbers = getWeekDateNumbers(date);
+const dayNumbers = getWeekDates();
 
 
+export default function Calendar({ selectedDate, setSelectedDate }) {
+    const [active, setActive] = useState(selectedDate);
 
-    const [active, setActive] = useState(date.getDay() - 1);
+    useEffect(() => setSelectedDate(active), [active]);
 
 
     return (
         <View style={styles.container}>
             <View style={styles.inners}>
-                {DaysOfWeek.map((day, i) => (
-                    <Text key={i} style={[styles.text, { fontWeight: 'bold'}]}>
-                        {day}
+                {dayNumbers.map((date) => (
+                    <Text key={date.getDate()} style={[styles.text, { fontWeight: 'bold'}]}>
+                        {DayAbbrv[date.getDay()]}
                     </Text>
                 ))}
             </View>
             <View style={styles.inners}>
-                {dayNumbers.map((num, i) => (
-                    <View
-                        key={i}
-                        style={i === active ? styles.active : {}}
-                    >
-                        <Text style={styles.text}>{num}</Text>
-                    </View>
+                {dayNumbers.map((date, i) => (
+                    <Pressable onPress={() => setActive(date)}>
+                        <View
+                            key={i}
+                            style={date.getDate() === active.getDate() ? styles.active : {}}
+                        >
+                            <Text style={styles.text}>{date.getDate()}</Text>
+                        </View>
+                    </Pressable>
                 ))}
             </View>
         </View>
