@@ -53,11 +53,8 @@ export default function Calendar({ selectedDate, setSelectedDate }) {
             </View>
             <View style={styles.inners}>
                 {dayNumbers.map((date, i) => (
-                    <Pressable onPress={() => setActive(date)}>
-                        <View
-                            key={i}
-                            style={date.getDate() === active.getDate() ? styles.active : {}}
-                        >
+                    <Pressable key={i} onPress={() => setActive(date)}>
+                        <View style={date.getDate() === active.getDate() ? styles.active : {}}>
                             <Text style={styles.text}>{date.getDate()}</Text>
                         </View>
                     </Pressable>

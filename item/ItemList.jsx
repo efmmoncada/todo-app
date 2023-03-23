@@ -47,14 +47,14 @@ export default function({tasks, setTasks}) {
 
     function ItemElement(name) {
         return(
-            <View style={styles.itemContainer}>
+            <View key={name} style={styles.itemContainer}>
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={[styles.positionButton, styles.buttonIcon]} onPress={() => moveItemUp(name)}>
                         <Icon style={styles.arrowIcon} name="caretup"/>
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.positionButton, styles.buttonIcon]} onPress={() => moveItemDown(name)}>
                         <Icon style={styles.arrowIcon} name="caretdown"/>
-                    </TouchableOpacity>                 
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.nameContainer}>
                     <Text style={styles.text}>{name}</Text>
@@ -78,7 +78,7 @@ export default function({tasks, setTasks}) {
 
     function dailySortingLabel() {
         const nTasks = tasks.filter((task) => {return(task.frequencyType === "Day")}).length
-        
+
         if (nTasks > 0) {
             return(
                 <Text style={[styles.labelText, colorStyle(darkMode)]}>Daily</Text>
@@ -88,7 +88,7 @@ export default function({tasks, setTasks}) {
 
     function weeklySortingLabel() {
         const nTasks = tasks.filter((task) => {return(task.frequencyType === "Week")}).length
-        
+
         if (nTasks > 0) {
             return(
                 <Text style={[styles.labelText, colorStyle(darkMode)]}>Weekly</Text>
@@ -98,7 +98,7 @@ export default function({tasks, setTasks}) {
 
     function monthlySortingLabel() {
         const nTasks = tasks.filter((task) => {return(task.frequencyType === "Month")}).length
-        
+
         if (nTasks > 0) {
             return(
                 <Text style={[styles.labelText, colorStyle(darkMode)]}>Monthly</Text>
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
         marginVertical: 3,
         borderRadius: 5,
         backgroundColor: "#ffeecc",
-    },  
+    },
     positionButton: {
         aspectRatio: 1,
         flexGrow: 1,
