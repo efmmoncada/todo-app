@@ -118,6 +118,7 @@ function App() {
   }, [tasks]);
 
   useEffect(() => {
+    console.log("called useeffect depending on taskHistory", taskHistory);
     writeDataToStorage(StorageKeys.TASK_HISTORY, taskHistory)
   }, [taskHistory]);
 

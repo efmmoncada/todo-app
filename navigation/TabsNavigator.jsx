@@ -6,6 +6,8 @@ import Settings from '../screens/Settings';
 import { AppSettings, backgroundStyle, colorStyle } from '../AppSettings';
 import { useContext } from 'react';
 import Screens from '../screens/ScreenNames';
+import Icon from 'react-native-vector-icons/FontAwesome'
+
 
 const Tabs = createBottomTabNavigator();
 
@@ -38,14 +40,17 @@ export function TabsNavigator({ tasks, setTasks, selectedDate, setSelectedDate }
             {...props}
           />
         )}
+        options={{tabBarIcon: (focused, color, size) => <Icon name='home' size={35} /> }}
       />
       <Tabs.Screen
         name={Screens.CreateTasks}
-        children={(props) => <CreateTask tasks={tasks} setTasks={setTasks} {...props} />}
+        children={(props) => <CreateTask tasks={tasks} setTasks={setTasks} selectedDate={selectedDate} {...props} />}
+        options={{tabBarIcon: (focused, color, size) => <Icon name='plus' size={35} /> }}
       />
       <Tabs.Screen
         name={Screens.Settings}
         children={(props) => <Settings tasks={tasks} setTasks={setTasks} {...props} />}
+        options={{tabBarIcon: (focused, color, size) => <Icon name='gear' size={35} /> }}
       />
     </Tabs.Navigator>
   );

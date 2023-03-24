@@ -6,7 +6,8 @@ import Screens from './ScreenNames';
 import { TaskTypes } from '../constants';
 import { AppSettings, backgroundStyle } from '../AppSettings';
 
-export default function CreateTask({ tasks, setTasks }) {
+const todaysDate = new Date();
+export default function CreateTask({ tasks, setTasks, selectedDate }) {
     const {darkMode} = useContext(AppSettings)
     const navigation = useNavigation()
 
@@ -42,6 +43,10 @@ export default function CreateTask({ tasks, setTasks }) {
      * Composesa new task and adds it to the list of tasks.
      */
     const handleSubmit = () => {
+        if (selectedDate.getDate() !== todaysDate.getDate()) {
+            alert("Please go back to current date to add a task!");
+            return;
+        }
 
         if (!validateSubmit(taskName, goal, frequency)) {
             alert("Missing Required Field");
